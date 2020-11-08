@@ -24,7 +24,7 @@ mapNames = ["Starting", "Menu", "41 Tanglewood Street", "Asylum", "67 Edgefield 
 
 #start Game
 del sys.argv[0]
-Popen(sys.argv)
+game = Popen(sys.argv)
 phasmophobiaDir = os.path.dirname(sys.argv[2])
 
 #prepare Discord-RPC
@@ -59,17 +59,19 @@ for i in range(9):
     print(os.path.join(phasmophobiaDir, 'Phasmophobia_Data', ('level' + str(i))))
     iNotifier.add_watch(os.path.join(phasmophobiaDir, 'Phasmophobia_Data', ('level' + str(i))), mask=0x00000020 )
 
-for event in iNotifier.event_gen(yield_nones=False):
-    (_, type_names, path, filename) = event
-    levelNumber = int(path[-1])
-    map = mapNames[levelNumber]
+for event in iNotifier.event_gen():
+    if event != None:
+        (_, type_names, path, filename) = event
+        levelNumber = int(path[-1])
+        map = mapNames[levelNumber]
 
-    discord_rpc.update_presence(**{
-    'state': map,
-    'large_image_key': map.lower().replace(' ', '_'),
-    'start_timestamp': int(time.time()),
-    })
-    discord_rpc.run_callbacks()
-    time.sleep(20)
-
-discord_rpc.shutdown()
+        discord_rpc.update_presence(**{
+        'state': map,
+        'large_image_key': map.lower().replace(' ', '_'),
+        'start_timestamp': int(time.time()),
+        })
+        discord_rpc.run_callbacks()
+        time.sleep(20)
+    if game.poll() != None:
+        discord_rpc.shutdown()
+        exit()
