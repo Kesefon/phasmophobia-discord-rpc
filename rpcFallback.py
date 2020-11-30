@@ -11,7 +11,7 @@ from subprocess import Popen
 import sys
 
 client_id = '774597065569075250'
-mapNames = ["Starting", "Lobby", "41 Tanglewood Street", "Asylum", "67 Edgefield Street", "56 Ridgeview Road", "James Brownstone High School", "Bleasdale Farmhouse", "Grafton Farmhouse"]
+mapNames = ["Starting", "Lobby", "41 Tanglewood Street", "Asylum", "67 Edgefield Street", "56 Ridgeview Road", "James Brownstone High School", "Bleasdale Farmhouse", "Grafton Farmhouse", "Prison"]
     #start = 0
     #menu = 1
     #tanglewood = 2
@@ -21,6 +21,7 @@ mapNames = ["Starting", "Lobby", "41 Tanglewood Street", "Asylum", "67 Edgefield
     #highschool = 6
     #bleasdale = 7
     #grafton = 8
+    #prison = 9
 
 #start Game
 del sys.argv[0]
